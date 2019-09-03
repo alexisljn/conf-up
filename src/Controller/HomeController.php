@@ -24,11 +24,7 @@ class HomeController extends AbstractController
      */
     public function getConferences(PaginatorInterface $paginator, Request $request) // 3 by 3
     {
-        //$conferences = $this->conferenceRepository->findBy([], [],3,$offset);
         $conferences = $this->conferenceRepository->findAll();
-        //$nbOfPages = count($allConferences) / 3;
-        //dd($nbOfPages);
-        //$paginator  = $this->get('knp_paginator');
         $pagination = $this->paginator->paginate(
             $conferences, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
