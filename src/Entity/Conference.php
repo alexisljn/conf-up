@@ -41,6 +41,7 @@ class Conference
     public function __construct()
     {
         $this->votes = new ArrayCollection();
+        $this->average = 0;
     }
 
     public function getId()
@@ -87,12 +88,12 @@ class Conference
     /**
      * @return Collection|Vote[]
      */
-    public function getVotes(): Collection
+    public function getVotes()
     {
         return $this->votes;
     }
 
-    public function addVote(Vote $vote): self
+    public function addVote(Vote $vote)
     {
         if (!$this->votes->contains($vote)) {
             $this->votes[] = $vote;
@@ -102,7 +103,7 @@ class Conference
         return $this;
     }
 
-    public function removeVote(Vote $vote): self
+    public function removeVote(Vote $vote)
     {
         if ($this->votes->contains($vote)) {
             $this->votes->removeElement($vote);

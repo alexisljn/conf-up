@@ -48,24 +48,24 @@ class Vote
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser()
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user)
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getConference(): ?Conference
+    public function getConference()
     {
         return $this->conference;
     }
 
-    public function setConference(?Conference $conference): self
+    public function setConference(Conference $conference)
     {
         $this->conference = $conference;
 

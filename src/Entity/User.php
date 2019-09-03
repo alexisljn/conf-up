@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Faker\Factory;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -56,7 +57,10 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $faker = Factory::create('fr-FR');
         $this->votes = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
+        $this->apiKey = $faker->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}');
     }
 
     public function getId()
