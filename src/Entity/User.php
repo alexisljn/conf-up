@@ -57,7 +57,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $faker = Factory::create('fr-FR');
+        $faker = Factory::create('fr_FR');
         $this->votes = new ArrayCollection();
         $this->roles = ['ROLE_USER'];
         $this->apiKey = $faker->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}');
