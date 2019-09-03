@@ -5,11 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -138,12 +139,12 @@ class User
     /**
      * @return Collection|Vote[]
      */
-    public function getVotes(): Collection
+    public function getVotes()
     {
         return $this->votes;
     }
 
-    public function addVote(Vote $vote): self
+    public function addVote(Vote $vote)
     {
         if (!$this->votes->contains($vote)) {
             $this->votes[] = $vote;
@@ -153,7 +154,7 @@ class User
         return $this;
     }
 
-    public function removeVote(Vote $vote): self
+    public function removeVote(Vote $vote)
     {
         if ($this->votes->contains($vote)) {
             $this->votes->removeElement($vote);
@@ -164,5 +165,38 @@ class User
         }
 
         return $this;
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+
     }
 }
