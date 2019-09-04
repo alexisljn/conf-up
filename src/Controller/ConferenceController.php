@@ -19,6 +19,16 @@ class ConferenceController extends AbstractController
     public function getConference(Conference $conference, Request $request, EntityManagerInterface $em)
     {
         $user = $this->getUser();
+        $alreadyVotedMessage = null;
+
+        foreach ($user->getVotes() as $userVote) {
+            foreach ($conference->getVotes() as $confVote) {
+                if($userVote === $confVote) {
+                    $alreadyVotedMessage = 'You already voted for this conference';
+                }
+            }
+        }
+
         $vote = new Vote();
         $form = $this->createForm(VoteConferenceType::class,$vote);
         $form->handleRequest($request);
@@ -43,7 +53,8 @@ class ConferenceController extends AbstractController
 
         return $this->render('conference/index.html.twig', [
             'form' => $form->createView(),
-            'conference' => $conference
+            'conference' => $conference,
+            'message' => $alreadyVotedMessage
         ]);
     }
 

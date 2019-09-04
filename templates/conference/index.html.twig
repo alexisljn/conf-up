@@ -6,8 +6,11 @@
     <h1>{{ conference.name }}</h1>
     <p>{{ conference.description }}</p>
     <p>Note : {{ conference.average }}</p>
-
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+    {% if message %}
+        <p>{{ message }}</p>
+    {% else %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    {% endif %}
 {% endblock %}
