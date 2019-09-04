@@ -29,11 +29,6 @@ class Conference
     private $description;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $average;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Vote", mappedBy="conference")
      */
     private $votes;
@@ -41,7 +36,6 @@ class Conference
     public function __construct()
     {
         $this->votes = new ArrayCollection();
-        $this->average = 0;
     }
 
     public function getId()
@@ -69,18 +63,6 @@ class Conference
     public function setDescription(string $description)
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getAverage()
-    {
-        return $this->average;
-    }
-
-    public function setAverage(float $average)
-    {
-        $this->average = $average;
 
         return $this;
     }

@@ -13,11 +13,27 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ConferenceController extends AbstractController
 {
+
+    private function getAverage(Conference $conference)
+    {
+        $conference->getVotes();
+        $votes = $conference->getVotes();
+        $values = [];
+        foreach ($votes as $singleVote) {
+            $values[] = $singleVote->getValue();
+        }
+        $average = round(array_sum($values) / count($values), 2);
+
+        return $average;
+    }
+
     /**
      * @Route("/conference/{id}", name="conference_vote")
      */
     public function getConference(Conference $conference, Request $request, EntityManagerInterface $em)
     {
+        $average = $this->getAverage($conference);
+
         $user = $this->getUser();
         $alreadyVotedMessage = null;
 
@@ -38,22 +54,16 @@ class ConferenceController extends AbstractController
             $vote->setConference($conference);
             $user->addVote($vote);
             $conference->addVote($vote);
-            $votes = $conference->getVotes();
-            $values = [];
-            foreach ($votes as $singleVote) {
-                $values[] = $singleVote->getValue();
-            }
-            $average = round(array_sum($values) / count($values), 2);
-            $conference->setAverage($average);
             $em->persist($vote);
             $em->flush();
             return $this->redirectToRoute('conference_vote',['id' => $conference->getId()]);
         }
 
 
-        return $this->render('conference/index.html.twig', [
+        return $this->render('conference/conference.html.twig', [
             'form' => $form->createView(),
             'conference' => $conference,
+            'average' => $average,
             'message' => $alreadyVotedMessage
         ]);
     }
@@ -66,6 +76,7 @@ class ConferenceController extends AbstractController
     {
         $votedConferences = [];
         $unvotedConferences = [];
+        $averages = [];
 
         $allConferences = $conferenceRepository->findAll();
         $user = $this->getUser();
@@ -80,16 +91,40 @@ class ConferenceController extends AbstractController
             }
         }
 
+        if (empty($votedConferences)){
+            foreach ($allConferences as $conference) {
+                $average = $this->getAverage($conference);
+                $averages[] = $average;
+                $unvotedConferences[] = [
+                    'conference' => $conference,
+                    'average' => $average
+                ];
+
+            }
+            dd('totot');
+            return $this->render('conference/unvoted.html.twig', [
+                'conferences' => $unvotedConferences
+            ]);
+        }
+
         foreach ($allConferences as $conference) {
             foreach ($votedConferences as $votedConference) {
+                //dd($votedConference);
+                //dd($conference);
                 if($conference !== $votedConference) {
-                    $unvotedConferences[] = $conference;
+                    dd($conference);
+                    $average = $this->getAverage($conference);
+                    //$averages[] = $average;
+                    $unvotedConferences[] = [
+                        'conference' => $conference,
+                        'average' => $average
+                    ];
                 }
             }
         }
-
+        //dd($unvotedConferences);
         return $this->render('conference/unvoted.html.twig', [
-            'unvoted' => $unvotedConferences
+            'conferences' => $unvotedConferences
         ]);
     }
 
