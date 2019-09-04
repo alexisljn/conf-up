@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <h1>List of users</h1>
+    {% for user in users %}
+        <div>
+            <p>Prénom : {{ user.firstname }}</p>
+            <p>Nom : {{ user.lastname }}</p>
+            <p>Email : {{ user.email }}</p>
+            <p>Role :
+            {% for role in user.roles %}
+                {{ role }}
+            {% endfor %}
+            </p>
+            <p><a href="{{ path('admin_user', {'id':user.id}) }}">Details</a>
+            <a href="{{ path('edit_user', {'id':user.id}) }}">Edit</a>
+            <a href="{{ path('delete_user', {'id':user.id}) }}">Delete</a></p>
+            ---------------------------
+        </div>
+    {% endfor %}
+{% endblock %}
