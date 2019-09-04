@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <h1>User details</h1>
+    <div>
+        <p>Prénom : {{ user.firstname }}</p>
+        <p>Nom : {{ user.lastname }}</p>
+        <p>Email : {{ user.email }}</p>
+        <p>Role :
+            {% for role in user.roles %}
+                {{ role }}
+            {% endfor %}
+        </p>
+        <p>Votes :
+            {% if user.votes|length > 0 %}
+                {% for vote in user.votes %}
+                    <p>{{ vote.conference.name }} : {{ vote.value }}</p>
+                {% endfor %}
+            {% endif %}
+        <a href="{{ path('edit_user', {'id':user.id}) }}">Edit</a>
+        <a href="{{ path('delete_user', {'id':user.id}) }}">Delete</a>
+    </div>
+{% endblock %}
