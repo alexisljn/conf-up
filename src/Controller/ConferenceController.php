@@ -81,4 +81,29 @@ class ConferenceController extends AbstractController
             'unvoted' => $unvotedConferences
         ]);
     }
+
+    /**
+     * @Route("/voted", name="conference_voted")
+     *
+     */
+    public function getvotedConferences(ConferenceRepository $conferenceRepository)
+    {
+        $votedConferences = [];
+
+        $allConferences = $conferenceRepository->findAll();
+        $user = $this->getUser();
+
+        foreach ($allConferences as $conference) {
+            foreach ($conference->getVotes() as $singleVote) {
+                foreach ($user->getVotes() as $userSingleVote) {
+                    if($userSingleVote === $singleVote) {
+                        $votedConferences[] = $conference;
+                    }
+                }
+            }
+        }
+        return $this->render('conference/voted.html.twig', [
+            'voted' => $votedConferences
+        ]);
+    }
 }
