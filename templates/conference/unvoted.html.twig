@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Unvoted conferences</h1>
     {% for conference in unvoted %}
-        <h2>{{ conference.name }}</h2>
+        <h2><a href="{{ path('conference_vote', {'id':conference.id}) }}">{{ conference.name }}</a></h2>
         <p>{{ conference.description }}</p>
         <p>Note : {{ conference.average }}</p>
     {% endfor %}
