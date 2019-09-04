@@ -106,4 +106,22 @@ class ConferenceController extends AbstractController
             'voted' => $votedConferences
         ]);
     }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function search(Request $request, ConferenceRepository $conferenceRepository)
+    {
+       $userInput = $request->request->get('search');
+       $conferences = $conferenceRepository->createQueryBuilder('c')
+                                          ->where('c.name LIKE :name')
+                                          ->setParameter('name', '%'.$userInput.'%')
+                                          ->getQuery()
+                                          ->getResult()
+                                          ;
+
+        return $this->render('conference/searched.html.twig', [
+            'conferences' => $conferences
+        ]);
+    }
 }

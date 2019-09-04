@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ConferenceController!{% endblock %}
+
+{% block body %}
+    {% if conferences %}
+        <h1>Conferences found</h1>
+        {% for conference in conferences %}
+            <h2><a href="{{ path('conference_vote', {'id':conference.id}) }}">{{ conference.name }}</a></h2>
+            <p>{{ conference.description }}</p>
+            <p>Note : {{ conference.average }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No conferences found</p>
+    {% endif %}
+{% endblock %}
