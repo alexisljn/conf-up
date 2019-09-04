@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <h1>Conferences</h1>
+    <p><a href="{{ path('create_conference') }}">Add a conference</a></p>
+    {% for conference in conferences %}
+        <h2>{{ conference.name }}</h2>
+        {% if conference.description %}
+            <p>{{ conference.description }}</p>
+        {% endif %}
+        <a href="{{ path('edit_conference', {'id':conference.id}) }}">Edit</a>
+        <a href="{{ path('delete_conference', {'id':conference.id}) }}">Delete</a>
+    {% endfor %}
+{% endblock %}
