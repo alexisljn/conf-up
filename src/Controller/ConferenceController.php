@@ -27,6 +27,13 @@ class ConferenceController extends AbstractController
             $vote->setConference($conference);
             $user->addVote($vote);
             $conference->addVote($vote);
+            $votes = $conference->getVotes();
+            $values = [];
+            foreach ($votes as $singleVote) {
+                $values[] = $singleVote->getValue();
+            }
+            $average = round(array_sum($values) / count($values), 2);
+            $conference->setAverage($average);
             $em->persist($vote);
             $em->flush();
             return $this->redirectToRoute('conference_vote',['id' => $conference->getId()]);
