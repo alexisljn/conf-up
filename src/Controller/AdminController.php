@@ -23,6 +23,9 @@ class AdminController extends AbstractController
     {
         $conference->getVotes();
         $votes = $conference->getVotes();
+        if(count($votes) < 1) {
+            return 'not voted by anyone yet';
+        }
         $values = [];
         foreach ($votes as $singleVote) {
             $values[] = $singleVote->getValue();
@@ -211,6 +214,35 @@ class AdminController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('admin_users');
+    }
+
+    /**
+     * @Route("/admin/top", name="top-ten")
+     */
+    public function getTopTenConferences(ConferenceRepository $conferenceRepository)
+    {
+        $top10 = [];
+        $conferences = [];
+        $conf = $conferenceRepository->findAll();
+        foreach ($conf as $conference) {
+            $average = $this->getAverage($conference);
+            $conferences[] = [
+                'conference' => $conference,
+                'average' => $average
+            ];
+        }
+
+        usort($conferences, function($a, $b) {
+            return $b['average'] <=> $a['average'];
+            });
+
+        for($i = 0; $i < 10; $i++) {
+            $top10[$i] = $conferences[$i];
+        }
+
+        return $this->render('admin/top.html.twig', [
+            'conferences' => $top10,
+        ]);
     }
 
 }
