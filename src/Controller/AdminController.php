@@ -19,12 +19,34 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AdminController extends AbstractController
 {
 
+    private function getAverage(Conference $conference)
+    {
+        $conference->getVotes();
+        $votes = $conference->getVotes();
+        $values = [];
+        foreach ($votes as $singleVote) {
+            $values[] = $singleVote->getValue();
+        }
+        $average = round(array_sum($values) / count($values), 2);
+
+        return $average;
+    }
+
     /**
      * @Route("/admin/conference", name="admin_conferences")
      */
     public function getConferences(ConferenceRepository $conferenceRepository)
     {
-        $conferences = $conferenceRepository->findAll();
+        $conferences = [];
+        $conf = $conferenceRepository->findAll();
+
+        foreach ($conf as $conference) {
+            $average = $this->getAverage($conference);
+            $conferences[] = [
+                'conference' => $conference,
+                'average' => $average
+            ];
+        }
 
         return $this->render('admin/conferences.html.twig', [
             'conferences' => $conferences,
@@ -36,8 +58,11 @@ class AdminController extends AbstractController
      */
     public function getConference(Conference $conference)
     {
+        $average = $this->getAverage($conference);
+
         return $this->render('admin/conference.html.twig', [
-            'conference' => $conference
+            'conference' => $conference,
+            'average' => $average
         ]);
     }
 

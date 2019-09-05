@@ -6,11 +6,12 @@
     <h1>Conferences</h1>
     <p><a href="{{ path('create_conference') }}">Add a conference</a></p>
     {% for conference in conferences %}
-        <h2>{{ conference.name }}</h2>
-        {% if conference.description %}
-            <p>{{ conference.description }}</p>
+        <h2>{{ conference.conference.name }}</h2>
+        {% if conference.conference.description %}
+            <p>{{ conference.conference.description }}</p>
+            <p>Note : {{ conference.average }}</p>
         {% endif %}
-        <a href="{{ path('edit_conference', {'id':conference.id}) }}">Edit</a>
-        <a href="{{ path('delete_conference', {'id':conference.id}) }}">Delete</a>
+        <a href="{{ path('edit_conference', {'id':conference.conference.id}) }}">Edit</a>
+        <a href="{{ path('delete_conference', {'id':conference.conference.id}) }}">Delete</a>
     {% endfor %}
 {% endblock %}

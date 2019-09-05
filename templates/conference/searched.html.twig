@@ -6,8 +6,8 @@
     {% if conferences %}
         <h1>Conferences found</h1>
         {% for conference in conferences %}
-            <h2><a href="{{ path('conference_vote', {'id':conference.id}) }}">{{ conference.name }}</a></h2>
-            <p>{{ conference.description }}</p>
+            <h2><a href="{{ path('conference_vote', {'id':conference.conference.id}) }}">{{ conference.conference.name }}</a></h2>
+            <p>{{ conference.conference.description }}</p>
             <p>Note : {{ conference.average }}</p>
         {% endfor %}
     {% else %}
