@@ -34,13 +34,13 @@ class AppFixtures extends Fixture
             $user->setEmail($faker->email);
             $user->setPassword($faker->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'));
             $user->setRoles(['ROLE_USER']);
-            $user->setApiKey($faker->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'));
+            //$user->setApiKey($faker->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'));
             $manager->persist($user);
         }
 
-        for($i = 0; $i < 10; $i++) {
+        for($i = 0; $i < 15; $i++) {
             $conf = new Conference();
-            $conf->setAverage(rand(0,5));
+          //  $conf->setAverage(rand(0,5));
             $conf->setDescription($faker->text(200));
             $conf->setName($faker->text(50));
             $manager->persist($conf);
