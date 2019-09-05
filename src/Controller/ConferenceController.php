@@ -18,6 +18,9 @@ class ConferenceController extends AbstractController
     {
         $conference->getVotes();
         $votes = $conference->getVotes();
+        if(count($votes) < 1) {
+            return 'not voted by anyone yet';
+        }
         $values = [];
         foreach ($votes as $singleVote) {
             $values[] = $singleVote->getValue();
