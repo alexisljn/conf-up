@@ -39,7 +39,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function getConferences(PaginatorInterface $paginator, Request $request) // 3 by 3
+    public function getConferences(Request $request) // 3 by 3
     {
         $conferences = [];
         $conf = $this->conferenceRepository->findAll();
