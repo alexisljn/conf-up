@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Conference;
 use App\Entity\User;
+use App\Event\ConferenceCreatedEvent;
 use App\Form\AdminCreateUserType;
 use App\Form\AdminEditUserType;
 use App\Form\CreateConferenceType;
 use App\Repository\ConferenceRepository;
 use App\Repository\UserRepository;
+use App\Service\MailSender;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
@@ -73,7 +76,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/create/conference", name="create_conference")
      */
-    public function createConference(Request $request, EntityManagerInterface $em)
+    public function createConference(Request $request, EntityManagerInterface $em, MailSender $sender ,EventDispatcherInterface $eventDispatcher)
     {
         $conference = new Conference();
         $form = $this->createForm(CreateConferenceType::class, $conference);
@@ -82,6 +85,10 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $em->persist($conference);
             $em->flush();
+            $sender->sendMail($conference);
+            //dd($conference);
+           // $event = new ConferenceCreatedEvent($conference);
+            //$eventDispatcher->dispatch(ConferenceCreatedEvent::NAME, $event);
             return $this->redirectToRoute('admin_conference',['id' => $conference->getId()]);
         }
 

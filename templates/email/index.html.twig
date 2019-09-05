@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New conference !{% endblock %}
+
+{% block body %}
+
+    <p>Hi mate,</p>
+    <p>a new conference just been added on Conf'Up.</p>
+    <p>{{ conference.name }}</p>
+    {% if conference.description %}
+        <p>{{ conference.description }}</p>
+    {% endif %}
+    <p>Please, check this out.</p>
+    <p>Best regards</p>
+    <p>Conf'Up team</p>
+
+{% endblock %}
