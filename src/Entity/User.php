@@ -5,11 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Faker\Factory;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"email"}, message="This email is already registered by an user")
  */
 class User implements UserInterface
 {
@@ -31,7 +33,8 @@ class User implements UserInterface
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
@@ -39,11 +42,6 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $apiKey;
 
     /**
      * @ORM\Column(type="simple_array")
@@ -57,10 +55,8 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $faker = Factory::create('fr_FR');
         $this->votes = new ArrayCollection();
         $this->roles = ['ROLE_USER'];
-        $this->apiKey = $faker->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}');
     }
 
     public function getId()
@@ -112,18 +108,6 @@ class User implements UserInterface
     public function setPassword(string $password)
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getApiKey()
-    {
-        return $this->apiKey;
-    }
-
-    public function setApiKey(string $apiKey)
-    {
-        $this->apiKey = $apiKey;
 
         return $this;
     }
