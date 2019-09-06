@@ -3,51 +3,28 @@
 {% block title %}Hello SecurityController!{% endblock %}
 
 {% block body %}
-
-
-<!-- Masthead -->
-
-<!-- Portfolio Section -->
-
-
-<!-- About Section -->
-
-
-<!-- Contact Section -->
-        <section class="page-section" id="contact">
+        <section class="page-section">
             <div class="container">
-                <h1>Login</h1>
+                <h1 class="text-info text-lg-left font-weight-lighter" style="font-family: 'Calibri'">Login</h1>
             {{ form_start(form)}}
         <form>
             <div class="form-row">
-
                 <div class="form-group col-md-6">
-            {{ form_row(form.email, { label_attr: {class:"form-control"}}) }}
+                    {{ form_label(form.email, 'Your Email', {label_attr: {'class': 'form-control'}} ) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
                 </div>
 
                 <div class="form-group col-md-6">
-                {{ form_row(form.password, { label_attr: {class:"form-control"}}) }}
+                    {{ form_label(form.password, 'Your Password', { label_attr: {class:"form-control"}}) }}
+                    {{ form_widget(form.password, { 'attr': {class:"form-control"}}) }}
                 </div>
 
                 <div class="form-group">
                 {{ form_row(form.submit)}}
                 </div>
             </div>
-
         </form>
             {{ form_end(form) }}
-
-
-
-
             </div>
         </section>
-
-    <!-- Footer -->
-
-
-    <!-- Copyright Section -->
-    <
-
-
 {% endblock %}

@@ -3,14 +3,28 @@
 {% block title %}Hello ConferenceController!{% endblock %}
 
 {% block body %}
-    <h1>{{ conference.name }}</h1>
-    <p>{{ conference.description }}</p>
-    <p>Note : {{ average }}</p>
-    {% if message %}
-        <p>{{ message }}</p>
-    {% else %}
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        {{ form_end(form) }}
-    {% endif %}
+    <section class="page-section">
+        <div class="container">
+            <h1>{{ conference.name }}</h1>
+            <p>{{ conference.description }}</p>
+            <p>Note : {{ average }}</p>
+            {% if message %}
+                <p>{{ message }}</p>
+            {% else %}
+                {{ form_start(form) }}
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                        {{ form_row(form.value, { label_attr: {display:"form-control"}}) }}
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            {{ form_row(form.submit) }}
+                        </div>
+                    </div>
+                </form>
+                {{ form_end(form) }}
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}
