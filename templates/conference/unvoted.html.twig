@@ -3,11 +3,15 @@
 {% block title %}Hello ConferenceController!{% endblock %}
 
 {% block body %}
-    <h1>Unvoted conferences</h1>
+<section class="page-section">
+    <div class="container">
+    <h1 class="text-info text-lg-left font-weight-lighter" style="font-family: 'Calibri'">Unvoted conferences</h1>
     {% for conference in conferences %}
 
         <h2><a href="{{ path('conference_vote', {'id':conference.conference.id}) }}">{{ conference.conference.name }}</a></h2>
         <p>{{ conference.conference.description }}</p>
         <p>Note : {{ conference.average }}</p>
     {% endfor %}
+    </div>
+</section>
 {% endblock %}

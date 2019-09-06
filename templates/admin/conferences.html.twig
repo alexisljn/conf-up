@@ -3,15 +3,21 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-    <h1>Conferences</h1>
-    <p><a href="{{ path('create_conference') }}">Add a conference</a></p>
-    {% for conference in conferences %}
-        <h2>{{ conference.conference.name }}</h2>
-        {% if conference.conference.description %}
-            <p>{{ conference.conference.description }}</p>
-            <p>Note : {{ conference.average }}</p>
-        {% endif %}
-        <a href="{{ path('edit_conference', {'id':conference.conference.id}) }}">Edit</a>
-        <a href="{{ path('delete_conference', {'id':conference.conference.id}) }}">Delete</a>
-    {% endfor %}
+    <section class="page-section">
+        <div class="container">
+            <h1 class="text-info text-lg-left font-weight-lighter" style="font-family: 'Calibri'">Manage conferences</h1>
+        <p><a href="{{ path('create_conference') }}">Add a conference</a></p>
+        {% for conference in conferences %}
+            <div style="margin-bottom: 10px">
+                <h2><a href="{{ path('admin_conference', {'id':conference.conference.id}) }}">{{ conference.conference.name }}</a></h2>
+                {% if conference.conference.description %}
+                    <p>{{ conference.conference.description }}</p>
+                    <p>Note : {{ conference.average }}</p>
+                {% endif %}
+                <a href="{{ path('edit_conference', {'id':conference.conference.id}) }}">Edit</a>
+                <a href="{{ path('delete_conference', {'id':conference.conference.id}) }}">Delete</a>
+            </div>
+        {% endfor %}
+        </div>
+    </section>
 {% endblock %}

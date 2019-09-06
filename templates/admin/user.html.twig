@@ -3,23 +3,26 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-    <h1>User details</h1>
-    <div>
-        <p>Prénom : {{ user.firstname }}</p>
-        <p>Nom : {{ user.lastname }}</p>
-        <p>Email : {{ user.email }}</p>
+<section class="page-section">
+    <div class="container">
+        <h1 class="text-info text-lg-left font-weight-lighter" style="font-family: 'Calibri'">{{ user.email }}</h1>
+        <a href="{{ path('edit_user', {'id':user.id}) }}">Edit</a>
+        <a href="{{ path('delete_user', {'id':user.id}) }}">Delete</a>
+        <p>Firstname : {{ user.firstname }}</p>
+        <p>Lastname : {{ user.lastname }}</p>
         <p>Role :
             {% for role in user.roles %}
                 {{ role }}
             {% endfor %}
         </p>
-        <p>Votes :
+        <h3 class="text-info text-lg-left font-weight-light text-uppercase">Votes</h3>
             {% if user.votes|length > 0 %}
+                <ul class="list-group list-group-flush">
                 {% for vote in user.votes %}
-                    <p>{{ vote.conference.name }} : {{ vote.value }}</p>
+                    <li class="list-group-item te">{{ vote.conference.name }} - note : {{ vote.value }}</li>
                 {% endfor %}
+                </ul>
             {% endif %}
-        <a href="{{ path('edit_user', {'id':user.id}) }}">Edit</a>
-        <a href="{{ path('delete_user', {'id':user.id}) }}">Delete</a>
     </div>
+</section>
 {% endblock %}
