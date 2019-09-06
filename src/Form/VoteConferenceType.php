@@ -24,7 +24,7 @@ class VoteConferenceType extends AbstractType
                     '5' => 5
                 ],
                 'expanded' => true,
-                'multiple' => false
+                'multiple' => false,
             ])
             ->add('submit', SubmitType::class)
         ;

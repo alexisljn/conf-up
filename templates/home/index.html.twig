@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Conf'UP{% endblock %}
 
 {% block body %}
-<section class="page-section" id="contact">
+<section class="page-section">
     <div class="container">
-    {% for conference in conferences %}
+        <h1 class="text-info text-lg-left font-weight-lighter" style="font-family: 'Calibri'">Conferences</h1>
+        {% for conference in conferences %}
         <h2><a href="{{ path('conference_vote', {'id':conference.conference.id}) }}">{{ conference.conference.name }}</a></h2>
         <p>{{ conference.conference.description }}</p>
         <p>Note: {{ conference.average }}</p>

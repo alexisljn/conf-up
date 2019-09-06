@@ -3,8 +3,40 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <section class="page-section">
+    <div class="container">
+    <h1 class="text-info text-lg-left font-weight-lighter" style="font-family: 'Calibri'">Edit a user</h1>
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form_label(form.firstname, 'User\'s firstname ') }}
+                {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(form.lastname, 'User\'s lastname ') }}
+                {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                {{ form_label(form.email, 'User\'s email ') }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form_label(form.password, 'User\'s password ') }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-check col-md-6">
+                {{ form_label(form.roles, 'User\'s roles') }}
+                {{ form_widget(form.roles) }}
+            </div>
+        </div>
+            <div class="form-group float-left" style="margin-top: 10px;">
+                {{ form_row(form.submit)}}
+            </div>
     {{ form_end(form) }}
+    </div>
+    </section>
 {% endblock %}

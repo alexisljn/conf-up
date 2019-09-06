@@ -3,19 +3,25 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-    <h2>{{ conference.name }}</h2>
+    <section class="page-section">
+        <div class="container">
+            <h1 class="text-info text-lg-left font-weight-lighter" style="font-family: 'Calibri'">{{ conference.name }}</h1>
     <a href="{{ path('edit_conference', {'id':conference.id}) }}">Edit</a>
     <a href="{{ path('delete_conference', {'id':conference.id}) }}">Delete</a>
     {% if conference.description %}
         <p>{{ conference.description }}</p>
     {% endif %}
     <p>Note : {{ average }}</p>
-    <h3>Votes :</h3>
+    <h3 class="text-info text-lg-left font-weight-light text-uppercase">Votes</h3>
     {% if conference.votes|length > 0%}
+        <ul class="list-group list-group-flush">
         {% for vote in conference.votes %}
-            <p>{{ vote.user.email }} - {{ vote.value }}</p>
+            <li class="list-group-item">{{ vote.user.email }} - note : {{ vote.value }}</li>
         {% endfor %}
+        </ul>
     {% else %}
         <p>Currently no votes for this conference</p>
     {% endif %}
+        </div>
+    </section>
 {% endblock %}

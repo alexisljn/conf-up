@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ConferenceController!{% endblock %}
+{% block title %}{{ conference.name }}{% endblock %}
 
 {% block body %}
     <section class="page-section">
         <div class="container">
-            <h1>{{ conference.name }}</h1>
+            <h1 class="text-info text-lg-left font-weight-lighter" style="font-family: 'Calibri'">{{ conference.name }}</h1>
             <p>{{ conference.description }}</p>
             <p>Note : {{ average }}</p>
             {% if message %}
                 <p>{{ message }}</p>
             {% else %}
-                {{ form_start(form) }}
-                <form>
+                    {{ form_start(form) }}
                     <div class="form-row">
-                        <div class="form-group col-md-12">
-                        {{ form_row(form.value, { label_attr: {display:"form-control"}}) }}
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            {{ form_row(form.submit) }}
+                        <div class="form-check form-check-inline">
+                            {{ form_label(form.value, 'Your vote') }}
+                            {{ form_widget(form.value) }}
                         </div>
                     </div>
-                </form>
-                {{ form_end(form) }}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary mb-2'}}) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
             {% endif %}
         </div>
     </section>

@@ -3,8 +3,10 @@
 {% block title %}Hello ConferenceController!{% endblock %}
 
 {% block body %}
+    <section class="page-section">
+        <div class="container">
+            <h1 class="text-info text-lg-left font-weight-lighter" style="font-family: 'Calibri'">Results</h1>
     {% if conferences %}
-        <h1>Conferences found</h1>
         {% for conference in conferences %}
             <h2><a href="{{ path('conference_vote', {'id':conference.conference.id}) }}">{{ conference.conference.name }}</a></h2>
             <p>{{ conference.conference.description }}</p>
@@ -13,4 +15,6 @@
     {% else %}
         <p>No conferences found</p>
     {% endif %}
+        </div>
+    </section>
 {% endblock %}
