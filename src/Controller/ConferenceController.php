@@ -106,7 +106,7 @@ class ConferenceController extends AbstractController
                 ];
 
             }
-            dd('totot');
+            //dd('totot');
             return $this->render('conference/unvoted.html.twig', [
                 'conferences' => $unvotedConferences
             ]);
