@@ -35,12 +35,18 @@
                             <li class="nav-item mx-0 mx-lg-1">
                                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ path('conference_unvoted') }}">Unvoted Conferences</a>
                             </li>
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ path('logout') }}">Logout</a>
+                            </li>
                         {% elseif is_granted('ROLE_USER') %}
                             <li class="nav-item mx-0 mx-lg-1">
                                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ path('conference_voted') }}">Voted Conferences</a>
                             </li>
                             <li class="nav-item mx-0 mx-lg-1">
                                 <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ path('conference_unvoted') }}">Unvoted Conferences</a>
+                            </li>
+                            <li class="nav-item mx-0 mx-lg-1">
+                                <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="{{ path('logout') }}">Logout</a>
                             </li>
                         {% else %}
                             <li class="nav-item mx-0 mx-lg-1">
